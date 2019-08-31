@@ -28,7 +28,7 @@ RUN yum -y install supervisor \
     && yum -y install tideways-php tideways-cli tideways-daemon \
     && yum -y install mongodb-server 
 
-RUN systemctl  enable mongod && systemctl mongod start 
+RUN systemctl enable mongod && systemctl start mongod
 
 RUN cd ~ && git clone https://github.com/perftools/xhgui \
     && mv  xhgui-branch /var/www/xhgui && php /var/www/xhgui/install.php
