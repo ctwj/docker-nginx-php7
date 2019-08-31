@@ -12,7 +12,7 @@ RUN yum -y install php72w php72w-bcmatch php72w-cli php72w-common php72w-dba php
     && yum -y install php72w-pecl-memcached php72w-pecl-mongodb php72w-pecl-redis php72w-pgsql php72w-xml \
     && yum -y install php72w-xmlrpc
 
-RUN cd ~ && wget https://github.com/swoole/swoole-src/archive/v4.3.1.tar.gz -O swoole.tar.gz \
+RUN yum -y install wget && cd ~ && wget https://github.com/swoole/swoole-src/archive/v4.3.1.tar.gz -O swoole.tar.gz \
     && mkdir -p swoole && tar -xf swoole.tar.gz -C swoole --strip-components=1 \
     && rm -rf swoole.tar.gz && cd swoole && phpize && ./configure --enable-async-redis --enable-mysqlnd --enable-coroutine --enable-openssl --enable-http2 --with-php-config=/usr/bin/php-config \
     && make && make install && echo extension=swoole.so > /etc/php.d/swoole.ini 
