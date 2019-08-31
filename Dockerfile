@@ -7,7 +7,10 @@ RUN yum -y install unzip gcc make autoconf gcc-c++ glibc-headers openssl-devel g
     && rpm -Uvh https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm \
     && rpm -Uvh https://mirror.webtatic.com/yum/el7/webtatic-release.rpm 
 
-RUN yum -y install php72w php72w-*
+RUN yum -y install php72w php72w-bcmatch php72w-cli php72w-common php72w-dba php72w-devel php72w-embedded php72w-enchant php72w-fpm \
+    && yum -y install php72w-gd php72w-imap php72w-mbstring php72w-mysqlnd php72w-pecl-imagick php72w-pecl-geoip php72w-pecl-apcu \
+    && yum -y install php72w-pecl-memcached php72w-pecl-mongodb php72w-pecl-redis php72w-pgsql php72w-xml \
+    && yum -y install php72w-xmlrpc
 
 RUN cd ~ && wget https://github.com/swoole/swoole-src/archive/v4.3.1.tar.gz -O swoole.tar.gz \
     && mkdir -p swoole && tar -xf swoole.tar.gz -C swoole --strip-components=1 \
