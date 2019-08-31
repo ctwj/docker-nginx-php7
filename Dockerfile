@@ -28,8 +28,6 @@ RUN yum -y install supervisor \
     && yum -y install tideways-php tideways-cli tideways-daemon \
     && yum -y install mongodb-server 
 
-RUN systemctl enable mongod && systemctl start mongod
-
 RUN cd ~ && git clone https://github.com/perftools/xhgui \
     && mv  xhgui-branch /var/www/xhgui && php /var/www/xhgui/install.php
 
@@ -40,5 +38,5 @@ COPY start.sh /root/start.sh
 COPY index.php /var/www/html/index.php
 
 WORKDIR /var/www/html
-EXPOSE 88
+EXPOSE 88 99
 ENTRYPOINT ["/bin/sh", "/root/start.sh"]
