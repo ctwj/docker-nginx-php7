@@ -21,10 +21,13 @@ RUN curl -sS https://getcomposer.org/installer | php && mv composer.phar /usr/lo
     && rpm -Uvh http://nginx.org/packages/centos/7/noarch/RPMS/nginx-release-centos-7-0.el7.ngx.noarch.rpm \
     && yum install -y nginx 
 
+RUN yum -y install supervisord
+
 
 COPY web.conf /etc/nginx/conf.d/nginx.conf
 COPY supervisord-fpm.conf /etc/supervisord.conf
 COPY start.sh /root/start.sh
+COPY index.php /var/www/html/index.php
 
 WORKDIR /var/www/html
 EXPOSE 88
