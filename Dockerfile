@@ -26,7 +26,9 @@ RUN yum -y install supervisor \
     && rpm --import https://s3-eu-west-1.amazonaws.com/qafoo-profiler/packages/EEB5E8F4.gpg \
     && yum makecache --disablerepo=* --enablerepo=tideways \
     && yum -y install tideways-php tideways-cli tideways-daemon \
-    && yum -y install mongodb-server && service enable mongod && service mongod start 
+    && yum -y install mongodb-server 
+
+RUN systemctl  enable mongod && systemctl mongod start 
 
 RUN cd ~ && git clone https://github.com/perftools/xhgui \
     && mv  xhgui-branch /var/www/xhgui && php /var/www/xhgui/install.php
