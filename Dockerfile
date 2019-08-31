@@ -29,7 +29,8 @@ RUN yum -y install supervisor \
     && yum -y install mongodb-server 
 
 RUN cd ~ && git clone https://github.com/perftools/xhgui \
-    && mv  xhgui /var/www/xhgui && php /var/www/xhgui/install.php
+    && mv  xhgui /var/www/xhgui && cd /var/www/xhgui/ && composer install --prefer-dist \
+    && chmod -R 777 /var/www/xhgui
 
 COPY xhgui.conf /etc/nginx/conf.d/xugui.conf
 COPY web.conf /etc/nginx/conf.d/web.conf
