@@ -21,10 +21,18 @@ RUN curl -sS https://getcomposer.org/installer | php && mv composer.phar /usr/lo
     && rpm -Uvh http://nginx.org/packages/centos/7/noarch/RPMS/nginx-release-centos-7-0.el7.ngx.noarch.rpm \
     && yum install -y nginx 
 
-RUN yum -y install supervisor
+COPY tideways.repo /etc/yum.repos.d/tideways.repo
+RUN yum -y install supervisor \
+    && rpm --import https://s3-eu-west-1.amazonaws.com/qafoo-profiler/packages/EEB5E8F4.gpg \
+    && yum makecache --disablerepo=* --enablerepo=tideways \
+    && yum -y install tideways-php tideways-cli tideways-daemon \
+    && yum -y install mongodb-server && service enable mongod && service mongod start 
 
+RUN cd ~ && git clone https://github.com/perftools/xhgui \
+    && mv  xhgui-branch /var/www/xhgui && php /var/www/xhgui/install.php
 
-COPY web.conf /etc/nginx/conf.d/nginx.conf
+COPY xhgui.conf /etc/nginx/conf.d/xugui.conf
+COPY web.conf /etc/nginx/conf.d/web.conf
 COPY supervisord-fpm.conf /etc/supervisord.conf
 COPY start.sh /root/start.sh
 COPY index.php /var/www/html/index.php
