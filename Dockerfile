@@ -29,7 +29,7 @@ RUN curl -sS https://getcomposer.org/installer | php && mv composer.phar /usr/lo
 
 # superviosr tideways mongodb
 RUN yum -y install supervisor  mongodb-org tideways-php tideways-cli tideways-daemon \
-    && mkdir -p /data/mongodb && yum -y install 
+    && mkdir -p /data/mongodb
 
 # xhgui
 RUN cd ~ && git clone https://github.com/perftools/xhgui \
