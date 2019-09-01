@@ -25,14 +25,16 @@ COPY tideways.repo /etc/yum.repos.d/tideways.repo
 RUN yum -y install supervisor \
     && rpm --import https://s3-eu-west-1.amazonaws.com/qafoo-profiler/packages/EEB5E8F4.gpg \
     && yum makecache --disablerepo=* --enablerepo=tideways \
-    && yum -y install tideways-php tideways-cli tideways-daemon \
-    && yum -y install mongodb-server 
+    && yum -y install tideways-php tideways-cli tideways-daemon
+
+COPY mongodb-org-4.0.repo /etc/yum.repos.d/mongodb-org-4.0.repo
+RUN yum -y mongodb-org && mkdir -p /data/mongodb
 
 RUN cd ~ && git clone https://github.com/perftools/xhgui \
     && mv  xhgui /var/www/xhgui && cd /var/www/xhgui/ && composer install --prefer-dist \
     && chmod -R 777 /var/www/xhgui
 
-COPY xhgui.conf /etc/nginx/conf.d/xugui.conf
+COPY xhgui.conf /etc/nginx/conf.d/xhgui.conf
 COPY web.conf /etc/nginx/conf.d/web.conf
 COPY supervisord-fpm.conf /etc/supervisord.conf
 COPY start.sh /root/start.sh
