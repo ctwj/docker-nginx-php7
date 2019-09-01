@@ -15,11 +15,11 @@
 ## 使用
 
 ```
-docker run -d -p 88:88 -p 99:99 -v /web/dir:/var/www/html --name dev ctwj/nginx_php7
+docker run -d -p 80:80 -p 88:88 -v /web/dir:/var/www/html --name dev ctwj/nginx_php7
 ```
 
 网站访问：
-> http://localhost:88
+> http://localhost
 
 性能监控:
-> http://localhost:99
+> http://localhost:88
