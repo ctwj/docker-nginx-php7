@@ -37,7 +37,7 @@ RUN cd ~ && git clone https://github.com/perftools/xhgui \
     && chmod -R 777 /var/www/xhgui
 
 COPY xhgui.conf /etc/nginx/conf.d/xhgui.conf
-COPY web.conf /etc/nginx/conf.d/web.conf
+COPY web.conf /etc/nginx/conf.d/default.conf
 COPY supervisord-fpm.conf /etc/supervisord.conf
 COPY start.sh /root/start.sh
 COPY index.php /var/www/html/index.php
