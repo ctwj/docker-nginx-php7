@@ -47,5 +47,5 @@ COPY start.sh /root/start.sh
 COPY index.php /var/www/html/index.php
 
 WORKDIR /var/www/html
-EXPOSE 88 99 9001
+EXPOSE 88 99
 ENTRYPOINT ["/bin/sh", "/root/start.sh"]
