@@ -36,6 +36,10 @@ RUN cd ~ && git clone https://github.com/perftools/xhgui \
     && mv  xhgui /var/www/xhgui && cd /var/www/xhgui/ && composer install --prefer-dist \
     && chmod -R 777 /var/www/xhgui
 
+# xdebug
+RUN yum -y install php72w-pecl-xdebug
+
+COPY xdebug.ini  /etc/php.d/xdebug.ini
 COPY xhgui.conf /etc/nginx/conf.d/xhgui.conf
 COPY web.conf /etc/nginx/conf.d/default.conf
 COPY supervisord-fpm.conf /etc/supervisord.conf
@@ -43,5 +47,5 @@ COPY start.sh /root/start.sh
 COPY index.php /var/www/html/index.php
 
 WORKDIR /var/www/html
-EXPOSE 88 99
+EXPOSE 88 99 9001
 ENTRYPOINT ["/bin/sh", "/root/start.sh"]

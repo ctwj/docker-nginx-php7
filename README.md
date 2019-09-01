@@ -11,11 +11,18 @@
 5. tideways + xhgui   用于性能监控
 6. mongodb            給 xhgui 提供存储
 7. supervisor         用于管理 nginx php-fpm  MongoDB
+8. xdebug
 
 ## 使用
 
+启动开发环境
 ```
-docker run -d -p 80:80 -p 88:88 -v /web/dir:/var/www/html --name dev ctwj/nginx_php7
+docker run -d -p 80:80 -v /web/dir:/var/www/html --name dev ctwj/nginx_php7
+```
+
+保存tideways调试信息
+```
+docker run -d -p 80:80 -p 88:88 -v /web/dir:/var/www/html -v /debug/store:/data/mongodb --name dev ctwj/nginx_php7
 ```
 
 网站访问：
@@ -23,3 +30,11 @@ docker run -d -p 80:80 -p 88:88 -v /web/dir:/var/www/html --name dev ctwj/nginx_
 
 性能监控:
 > http://localhost:88
+
+启动调试
+```
+远程端口：9001
+key:  debug
+```
+
+
