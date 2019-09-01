@@ -3,7 +3,8 @@ MAINTAINER ctwj 908504609@qq.com
 
 COPY mongodb-org-4.0.repo /etc/yum.repos.d/mongodb-org-4.0.repo
 COPY tideways.repo /etc/yum.repos.d/tideways.repo
-RUN yum update
+RUN rpm --import https://s3-eu-west-1.amazonaws.com/qafoo-profiler/packages/EEB5E8F4.gpg \
+    && yum makecache --disablerepo=* --enablerepo=tideways && yum update
 
 RUN yum -y install unzip gcc make autoconf wget gcc-c++ glibc-headers openssl-devel git \
     && rpm -Uvh https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm \
@@ -26,14 +27,9 @@ RUN curl -sS https://getcomposer.org/installer | php && mv composer.phar /usr/lo
     && rpm -Uvh http://nginx.org/packages/centos/7/noarch/RPMS/nginx-release-centos-7-0.el7.ngx.noarch.rpm \
     && yum install -y nginx 
 
-# superviosr tideways
-RUN yum -y install supervisor \
-    && rpm --import https://s3-eu-west-1.amazonaws.com/qafoo-profiler/packages/EEB5E8F4.gpg \
-    && yum makecache --disablerepo=* --enablerepo=tideways \
+# superviosr tideways mongodb
+RUN yum -y install supervisor && yum -y mongodb-org && mkdir -p /data/mongodb \
     && yum -y install tideways-php tideways-cli tideways-daemon
-
-# mongodb
-RUN yum -y mongodb-org && mkdir -p /data/mongodb
 
 # xhgui
 RUN cd ~ && git clone https://github.com/perftools/xhgui \
