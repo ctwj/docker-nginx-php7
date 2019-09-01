@@ -31,14 +31,7 @@ docker run -d -p 80:80 -p 88:88 -v /web/dir:/var/www/html -v /debug/store:/data/
 性能监控:
 > http://localhost:88
 
-启动调试
-```
-远程端口：9001
-```
+xdebug断点调试
 
-vscode
-1. 安装 PHP Debug 插件
-2. 选择左侧调试功能，添加环境选择php
-3. 在打开的配置文件`launch.json`中修改端口为9001
 
 
