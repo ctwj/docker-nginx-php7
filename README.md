@@ -33,5 +33,33 @@ docker run -d -p 80:80 -p 88:88 -v /web/dir:/var/www/html -v /debug/store:/data/
 
 xdebug断点调试
 
+使用docker-compose 添加数据庫支持
+```
+version: "2"
+services:
+  mysql:
+    image: mariadb
+    restart: always
+    container_name: "xdb"
+    expose:
+      - 3306
+    environment:
+      - MYSQL_ROOT_PASSWORD=root
+      - MYSQL_DATABASE=gooljam
+    volumes:
+      - ./docker/mysql:/var/lib/mysql
+
+  web:
+    image: ctwj/nginx_php7
+    container_name: "xweb"
+    ports:
+      - 60000:80
+      - 60001:88
+    volumes:
+      - .:/var/www/html
+      - ./docker/mongodb:/data/mongodb
+    links:
+      - mysql:mysql
+```
 
 
