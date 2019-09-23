@@ -31,7 +31,7 @@ docker run -d -p 80:80 -p 88:88 -v /web/dir:/var/www/html -v /debug/store:/data/
 性能监控:
 > http://localhost:88
 
-xdebug断点调试
+[xdebug断点调试](https://www.jianshu.com/p/242717e13fd9)
 
 使用docker-compose 添加数据庫支持
 ```
